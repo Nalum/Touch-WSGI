@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import sublime
 import sublime_plugin
 import os
 from glob import glob
