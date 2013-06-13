@@ -19,7 +19,7 @@ class TouchWSGI(sublime_plugin.EventListener):
         window = view.window()
         for folder in window.folders():
             self.check_folder(folder)
-            self.get_folders(folder)
+            # self.get_folders(folder)
         print "Done."
 
     def check_folder(self, path):
