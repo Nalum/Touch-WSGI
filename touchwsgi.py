@@ -27,7 +27,7 @@ class TouchWSGI(sublime_plugin.EventListener):
         if len(wsgi_files) > 0:
             print "Found WSGI File(s) in " + path
             for wsgi_file in wsgi_files:
-                os.system("touch " + wsgi_file)
+                os.utime(wsgi_file, None)
 
     def get_folders(self, path):
         for root, dirnames, filenames in os.walk(path):
