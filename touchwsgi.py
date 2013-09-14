@@ -7,12 +7,10 @@ from glob import glob
 
 class TouchWSGI(sublime_plugin.EventListener):
     """
-    Sublime Text 2 Plugin to Touch WSGI Files.
+    Sublime Text Plugin to Touch WSGI Files.
 
     Scans any open folders in the current window when saving a file to see
     if there is a WSGI file in it. "WSGI file" == *.wsgi or *wsgi.py
-
-    Now also scans subfolders.
     """
     def on_post_save(self, view):
         print "Looking for WSGI Files."
