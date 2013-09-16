@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import sublime
 import sublime_plugin
 import os
 from glob import glob
@@ -13,12 +12,12 @@ class TouchWSGI(sublime_plugin.EventListener):
     Scans any open folders in the current window when saving a file to see
     if there is a WSGI file in it. "WSGI file" == *.wsgi or *wsgi.py
     """
-    def on_post_save(self, view):
+    def on_post_save_async(self, view):
         print "Looking for WSGI Files."
         window = view.window()
         for folder in window.folders():
             self.check_folder(folder)
-            # self.get_folders(folder)
+            self.get_folders(folder)
         print "Done."
 
     def check_folder(self, path):
