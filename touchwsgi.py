@@ -13,23 +13,16 @@ class TouchWSGI(sublime_plugin.EventListener):
     if there is a WSGI file in it. "WSGI file" == r"^.*[\.]wsgi(\.py)?$"
     """
     def on_post_save(self, view):
-        window = view.window()
-        for folder in window.folders():
-            self.get_folders(folder)
+        for folder in view.window().folders():
+            filename = view.file_name()
 
-    def check_files(self, path, files):
-        regex = re.compile(r"^.*[\.]wsgi(\.py)?$")
-        files = [filename for filename in files if regex.match(filename) is not None]
-
-        if len(files) > 0:
-            for filename in files:
-                os.utime(path + '/' + filename, None)
+            if filename is not None and filename.startswith(folder):
+                self.get_folders(folder)
 
     def get_folders(self, path):
+        regex = re.compile(r"^.*[\.]wsgi(\.py)?$")
+
         for root, dirnames, filenames in os.walk(path):
-            if len(dirnames) > 0:
-                for dirname in dirnames:
-                    self.check_files(root, filenames)
-                    filenames = []
-                    new_path = os.path.join(root, dirname)
-                    self.get_folders(new_path)
+            for filename in filenames:
+                if regex.match(filename):
+                    os.utime(os.path.join(root, filename), None)
